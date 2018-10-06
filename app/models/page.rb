@@ -14,4 +14,23 @@ class Page < ApplicationRecord
       page.save!
     end
   end
+
+  def self.snapshot!
+    today = Date.today
+    find_in_batches(batch_size: 50) do |pages|
+      url_page_map = {}.tap {|map|
+        pages.each do |page|
+          map[page.url] = page
+        end
+      }
+
+      HatenaBookmark::Api.new.counts(url_page_map.keys).each do |x|
+        HatenaBookmark::Snapshot.find_or_create_by!(
+          count: x.count,
+          date: today,
+          page: url_page_map[x.url],
+        )
+      end
+    end
+  end
 end
