@@ -26,6 +26,7 @@ ActiveRecord::Schema.define(version: 2018_10_05_081417) do
   end
 
   create_table "pages", force: :cascade do |t|
+    t.text "title", null: false
     t.text "url", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
