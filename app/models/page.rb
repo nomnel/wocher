@@ -7,7 +7,7 @@ class Page < ApplicationRecord
   validates :url, presence: true, uniqueness: true
 
   def self.pull!
-    HatenaBlog::Api.new.entries.each do |entry|
+    HatenaBlog::Client.new.entries.each do |entry|
       page = find_or_initialize_by(url: entry.url)
       page.title = entry.title
       break unless page.changed?
@@ -24,7 +24,7 @@ class Page < ApplicationRecord
         end
       }
 
-      HatenaBookmark::Api.new.counts(url_page_map.keys).each do |x|
+      HatenaBookmark::Client.new.counts(url_page_map.keys).each do |x|
         HatenaBookmark::Snapshot.find_or_create_by!(
           count: x.count,
           date: today,

@@ -1,6 +1,6 @@
 require 'net/http'
 
-class HatenaBookmark::Api
+class HatenaBookmark::Client
   Entry = Struct.new(:count, :url, keyword_init: true)
 
   def counts(urls)

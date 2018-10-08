@@ -1,6 +1,6 @@
 require 'net/http'
 
-class HatenaBlog::Api
+class HatenaBlog::Client
   API_KEY   = ENV['HATENA_BLOG_API_KEY']
   BLOG_NAME = ENV['HATENA_BLOG_BLOG_NAME']
   USER_NAME = ENV['HATENA_BLOG_USER_NAME']
