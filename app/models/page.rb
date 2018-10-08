@@ -25,11 +25,12 @@ class Page < ApplicationRecord
       }
 
       HatenaBookmark::Client.new.counts(url_page_map.keys).each do |x|
-        HatenaBookmark::Snapshot.find_or_create_by!(
-          count: x.count,
+        snapshot = HatenaBookmark::Snapshot.find_or_initialize_by(
           date: today,
           page: url_page_map[x.url],
         )
+        snapshot.count = x.count
+        snapshot.save!
       end
     end
   end
