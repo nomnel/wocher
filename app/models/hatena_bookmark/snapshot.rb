@@ -6,7 +6,7 @@ class HatenaBookmark::Snapshot < ApplicationRecord
     presence: true
   validates :date, presence: true
 
-  def self.most_increased(limit: 3, from_date:)
+  def self.most_increased(from_date:, limit: 3)
     date = maximum(:date)
     join_clause = sanitize_sql(
       ["left outer join #{table_name} as b on a.page_id = b.page_id and b.date = ?", from_date])
